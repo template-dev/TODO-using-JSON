@@ -14,7 +14,7 @@ This is a simple TODO application developed in C++ that allows users to manage t
 
 ## Requirements
 
-- C++ compiler supporting C++11 or later
+- C++ compiler supporting C++17 or later
 - CMake
 
 ## Installation
@@ -111,7 +111,7 @@ This project is licensed under the MIT License.
 
 ## Требования
 
-- Компилятор C++, поддерживающий C++11 или более поздние версии
+- Компилятор C++, поддерживающий C++17 или более поздние версии
 - CMake
 
 ## Установка
