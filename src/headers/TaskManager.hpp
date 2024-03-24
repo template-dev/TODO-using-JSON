@@ -2,7 +2,6 @@
 
 #include "interfaces/ITaskManager.hpp"
 #include <iostream>
-#include <string>
 #include <fstream>
 #include <chrono>
 #include <thread>
@@ -24,7 +23,7 @@ public:
   ~TaskManager() = default;
 
   void start() override;
-  void add(const std::string& title, const std::string& description) override;
+  void add() override;
   void remove(const std::string& title) override;
   void edit(const std::string& title) override;
   void printAllTasks() override;

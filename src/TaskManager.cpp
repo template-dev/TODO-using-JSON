@@ -37,11 +37,7 @@ void TaskManager::functional(const std::string& command) {
     std::string description = "";
 
     if(command == "/add") {
-      std::cout << "Please enter a title: ";
-      std::getline(std::cin, title);
-      std::cout << "Please enter a description: ";
-      std::getline(std::cin, description);
-      add(title, description);
+      add();
     }
     else if(command == "/remove") {
       std::cout << "Please enter a title: ";
@@ -63,16 +59,32 @@ void TaskManager::functional(const std::string& command) {
       printAllTasks();
       std::cin.get();
     }
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    std::this_thread::sleep_for(std::chrono::milliseconds(700));
   }
   else {
     m_isRunning = false;
   }
 }
 
-void TaskManager::add(const std::string& title, const std::string& description) {
+void TaskManager::add() {
   m_file.open(m_filename);
+  std::string title = "";
+  std::string description = "";
+
+  std::cout << "Please enter a title: ";
+  std::getline(std::cin, title);
+
   if(!title.empty()) {
+    for(auto& task : m_tasksArray) {
+      if(task["title"] == title) {
+        std::cout << "This task already exists!" << std::endl;
+        return;
+      }
+    }
+
+    std::cout << "Please enter a description: ";
+    std::getline(std::cin, description);
+
     nlohmann::json newTask = {
       {"title", title},
       {"description", description},
