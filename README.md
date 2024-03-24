@@ -19,7 +19,7 @@ This is a simple TODO application developed in C++ that allows users to manage t
 
 1. Clone the repository:
   ```sh
-  git clone https://github.com/your_username/task-manager.git
+  git clone https://github.com/template-dev/TODO-using-JSON.git
   ```
 
 2. Navigate to the project directory:
@@ -52,6 +52,10 @@ This is a simple TODO application developed in C++ that allows users to manage t
 - Run the executable generated after compilation.
 - You will be presented with a menu allowing you to perform various tasks such as adding, removing, editing, printing, and setting task statuses.
 - Follow the prompts to interact with the application.
+
+## Dependencies
+
+- [nlohmann/json](https://github.com/nlohmann/json): A C++ library for JSON manipulation, used for storing tasks in JSON format.
 
 ## JSON File Structure
 
