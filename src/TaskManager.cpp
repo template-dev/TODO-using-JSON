@@ -23,7 +23,7 @@ void TaskManager::start() {
 
       std::cout << "Enter your command, please: ";
       std::getline(std::cin, command);
-      functional(command);
+      mainMenu(command);
     } while(m_isRunning);
   }
   else {
@@ -31,7 +31,7 @@ void TaskManager::start() {
   }
 }
 
-void TaskManager::functional(const std::string& command) {
+void TaskManager::mainMenu(const std::string& command) {
   if(command != "/exit") {
     std::string title = "";
     std::string description = "";

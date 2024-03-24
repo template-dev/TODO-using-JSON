@@ -29,9 +29,8 @@ public:
   void printAllTasks() override;
   void setTaskStatus(const std::string& title) override;
 
-  void functional(const std::string& command);
-
 private:
+  void mainMenu(const std::string& command);
   std::string toLowerCase(const std::string& str);
 
 private:
