@@ -18,9 +18,9 @@ This is a simple TODO application developed in C++ that allows users to manage t
 ## Installation
 
 1. Clone the repository:
-   ```sh
-   git clone https://github.com/your_username/task-manager.git
-   ```
+  ```sh
+  git clone https://github.com/your_username/task-manager.git
+  ```
 
 2. Navigate to the project directory:
   ```sh
@@ -76,12 +76,12 @@ Tasks are stored in a JSON file with the following structure:
 
 Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
 
-  - Fork the repository.
-  - Create a new branch (git checkout -b feature/improvement)
-  - Make your changes.
-  - Commit your changes (git commit -am 'Add new feature')
-  - Push to the branch (git push origin feature/improvement)
-  - Create a new Pull Request.
+- Fork the repository.
+- Create a new branch (git checkout -b feature/improvement)
+- Make your changes.
+- Commit your changes (git commit -am 'Add new feature')
+- Push to the branch (git push origin feature/improvement)
+- Create a new Pull Request.
 
 ## License
 
