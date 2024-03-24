@@ -4,27 +4,36 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <chrono>
+#include <thread>
+#include <nlohmann/json.hpp>
 
 class TaskManager : public ITaskManager {
 public:
   TaskManager(const std::string& filename = "")
     : m_filename{filename}
-    , m_command{""}
     , m_file{filename, std::ios::in | std::ios::out | std::ios::app}
-    , m_isExit{false}
+    , m_isRunning{true}
   {}
-  ~TaskManager();
 
-  void start()          override;
-  void add()            override;
-  void remove()         override;
-  void edit()           override;
-  void printAllTasks()  override;
-  void completeTask()   override;
+  TaskManager(const TaskManager& other) = delete;
+  TaskManager(TaskManager&& other) = delete;
+  TaskManager& operator=(const TaskManager& other) = delete;
+  TaskManager& operator=(TaskManager&& other) = delete;
+  ~TaskManager() = default;
+
+  void start() override;
+  void add(const std::string& title, const std::string& description) override;
+  void remove(const std::string& title) override;
+  void edit(const std::string& title, const std::string& description) override;
+  void printAllTasks() override;
+  void completeTask(const std::string& title) override;
+
+  void functional(const std::string& command);
 
 private:
   std::string m_filename;
-  std::string m_command;
   std::fstream m_file;
-  bool m_isExit;
+  bool m_isRunning;
+  nlohmann::json m_tasksArray = nlohmann::json::array();
 };
