@@ -6,6 +6,7 @@
 #include <fstream>
 #include <chrono>
 #include <thread>
+#include <algorithm>
 #include <nlohmann/json.hpp>
 
 class TaskManager : public ITaskManager {
@@ -25,11 +26,14 @@ public:
   void start() override;
   void add(const std::string& title, const std::string& description) override;
   void remove(const std::string& title) override;
-  void edit(const std::string& title, const std::string& description) override;
+  void edit(const std::string& title) override;
   void printAllTasks() override;
-  void completeTask(const std::string& title) override;
+  void setTaskStatus(const std::string& title) override;
 
   void functional(const std::string& command);
+
+private:
+  std::string toLowerCase(const std::string& str);
 
 private:
   std::string m_filename;

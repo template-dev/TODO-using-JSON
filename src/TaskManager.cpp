@@ -14,11 +14,11 @@ void TaskManager::start() {
     do {
       system("cls");
       std::cout << "---[ MENU ]---" << std::endl
-                << "1. Add task        \t(/add [title] [description])" << std::endl
-                << "2. Remove task     \t(/remove [title])" << std::endl
-                << "3. Completed task  \t(/completed [title])" << std::endl
-                << "4. Edit task       \t(/edit [title] [description])" << std::endl
-                << "5. Print all tasks \t(/print)" << std::endl
+                << "1. Add task                \t(/add)" << std::endl
+                << "2. Remove task             \t(/remove)" << std::endl
+                << "3. Change the task status  \t(/setstatus)" << std::endl
+                << "4. Edit task               \t(/edit)" << std::endl
+                << "5. Print all tasks         \t(/print)" << std::endl
                 << "Write the command '/exit' to exit" << std::endl;
 
       std::cout << "Enter your command, please: ";
@@ -48,17 +48,16 @@ void TaskManager::functional(const std::string& command) {
       std::getline(std::cin, title);
       remove(title);
     }
-    else if(command == "/completed") {
+    else if(command == "/setstatus") {
+      bool status = false;
       std::cout << "Please enter a title: ";
       std::getline(std::cin, title);
-      completeTask(title);
+      setTaskStatus(title);
     }
     else if(command == "/edit") {
       std::cout << "Please enter a title: ";
       std::getline(std::cin, title);
-      std::cout << "Please enter a description: ";
-      std::getline(std::cin, description);
-      edit(title, description);
+      edit(title);
     }
     else if(command == "/print") {
       printAllTasks();
@@ -95,11 +94,55 @@ void TaskManager::add(const std::string& title, const std::string& description) 
 }
 
 void TaskManager::remove(const std::string& title) {
-  std::cout << "The " << title << " has been successfully removed!" << std::endl;
+  auto removeIt = std::find_if(m_tasksArray.begin(), m_tasksArray.end(), [&title](const auto& task){
+    return task["title"] == title;
+  });
+
+  if(removeIt != m_tasksArray.end()) {
+    m_tasksArray.erase(removeIt);
+    m_file.open(m_filename, std::ios::out | std::ios::trunc);
+    m_file << std::setw(4) << m_tasksArray << std::endl;
+    m_file.close();
+    std::cout << "The " << title << " has been successfully removed!" << std::endl;
+  }
+  else {
+    std::cout << "The " << title << " has not been deleted!" << std::endl;
+  }
 }
 
-void TaskManager::edit(const std::string& title, const std::string& description) {
-  std::cout << "The data has been successfully edited!" << std::endl;
+void TaskManager::edit(const std::string& title) {
+  if(title.empty())
+    return;
+
+  m_file.open(m_filename, std::ios::out | std::ios::trunc);
+  std::string newTitle = "";
+  std::string newDescription = "";
+  std::string answerForChange = "";
+
+  for(auto& task : m_tasksArray) {
+    if(task["title"] == title) {
+      std::cout << "Do you want to change the title? (yes/no): ";
+      std::getline(std::cin, answerForChange);
+      answerForChange = toLowerCase(answerForChange);
+
+      if(answerForChange == "yes") {
+        std::cout << "Please enter a new title:" << std::endl;
+        std::getline(std::cin, newTitle);
+        task["title"] = newTitle;
+      }
+
+      std::cout << "Please enter a new description: ";
+      std::getline(std::cin, newDescription);
+      if(!newDescription.empty()) {
+        task["description"] = newDescription;
+      }
+
+      std::cout << "You have successfully changed the status of the task!" << std::endl;
+      break;
+    }
+  }
+  m_file << std::setw(4) << m_tasksArray << std::endl;
+  m_file.close();
 }
 
 void TaskManager::printAllTasks() {
@@ -114,6 +157,25 @@ void TaskManager::printAllTasks() {
   std::cout << "Press Enter to go to the menu...";
 }
 
-void TaskManager::completeTask(const std::string& title) {
-  std::cout << "You have completed the task!" << std::endl;
+void TaskManager::setTaskStatus(const std::string& title) {
+  m_file.open(m_filename, std::ios::out);
+  std::string status = "";
+
+  for(auto& task : m_tasksArray) {
+    if(task["title"] == title) {
+      std::cout << "Please enter the status of the task: ";
+      std::getline(std::cin, status);
+      task["completed"] = (status == "true") ? true : false;
+      break;
+    }
+  }
+
+  m_file << std::setw(4) << m_tasksArray << std::endl;
+  m_file.close();
+}
+
+std::string TaskManager::toLowerCase(const std::string& str) {
+  std::string result = str;
+  std::transform(result.begin(), result.end(), result.begin(), ::tolower);
+  return result;
 }
