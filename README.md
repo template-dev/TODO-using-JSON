@@ -1,3 +1,5 @@
+# English
+
 # Task Manager
 
 This is a simple TODO application developed in C++ that allows users to manage their tasks. Tasks are stored in a JSON file.
@@ -24,7 +26,7 @@ This is a simple TODO application developed in C++ that allows users to manage t
 
 2. Navigate to the project directory:
   ```sh
-  cd task-manager
+  cd TODO-using-JSON
   ```
 
 3. Create a build directory:
@@ -89,4 +91,100 @@ Contributions are welcome! If you'd like to contribute to this project, please f
 
 ## License
 
-This project is licensed under the MIT License
+This project is licensed under the MIT License.
+
+---
+
+# Русский
+
+# Менеджер задач
+
+Это простое приложение TODO, разработанное на C++, позволяющее пользователям управлять своими задачами. Задачи хранятся в JSON-файле.
+
+## Возможности
+
+- Добавление задач
+- Удаление задач
+- Редактирование задач
+- Вывод всех задач
+- Установка статуса задачи
+
+## Требования
+
+- Компилятор C++, поддерживающий C++11 или более поздние версии
+- CMake
+
+## Установка
+
+1. Клонировать репозиторий:
+  ```sh
+  git clone https://github.com/template-dev/TODO-using-JSON.git
+  ```
+
+2. Перейти в директорию проекта:
+  ```sh
+  cd TODO-using-JSON
+  ```
+
+3. Создать директорию для сборки:
+  ```sh
+  mkdir build
+  ```
+
+4. Перейти в директорию сборки:
+  ```sh
+  cd build
+  ```
+
+5. Сгенерировать файлы сборки с помощью CMake:
+  ```sh
+  cmake ..
+  ```
+
+6. Скомпилировать проект:
+  ```sh
+  cmake --build .
+  ```
+
+## Использование
+- Запустите исполняемый файл, сгенерированный после компиляции.
+- Вы увидите меню, позволяющее выполнять различные задачи, такие как добавление, удаление, редактирование, вывод и установка статуса задачи.
+- Следуйте подсказкам, чтобы взаимодействовать с приложением.
+
+## Зависимости
+
+- [nlohmann/json](https://github.com/nlohmann/json): библиотека для работы с JSON в C++, используется для хранения задач в формате JSON.
+
+## Структура JSON-файла
+
+Задачи хранятся в JSON-файле со следующей структурой:
+
+  ```json
+  [
+    {
+      "title": "Task Title",
+      "description": "Task Description",
+      "completed": false
+    },
+    {
+      "title": "Another Task",
+      "description": "Description of another task",
+      "completed": false
+    }
+  ]
+  ```
+
+## Вклад
+
+Приветствуются вклады! Если вы хотите внести свой вклад в этот проект, пожалуйста, выполните следующие шаги:
+
+- Форкните репозиторий.
+- Создайте новую ветку (git checkout -b feature/improvement)
+- Внесите изменения.
+- Зафиксируйте изменения (git commit -am 'Добавить новую функцию')
+- Отправьте изменения в ветку (git push origin feature/improvement)
+- Создайте новый Pull Request.
+
+## Лицензия
+
+Этот проект распространяется под лицензией MIT.
