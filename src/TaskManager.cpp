@@ -33,30 +33,21 @@ void TaskManager::start() {
 
 void TaskManager::mainMenu(const std::string& command) {
   if(command != "/exit") {
-    std::string title = "";
-    std::string description = "";
-
     if(command == "/add") {
       add();
     }
     else if(command == "/remove") {
-      std::cout << "Please enter a title: ";
-      std::getline(std::cin, title);
-      remove(title);
+      remove();
     }
     else if(command == "/setstatus") {
-      bool status = false;
-      std::cout << "Please enter a title: ";
-      std::getline(std::cin, title);
-      setTaskStatus(title);
+      setTaskStatus();
     }
     else if(command == "/edit") {
-      std::cout << "Please enter a title: ";
-      std::getline(std::cin, title);
-      edit(title);
+      edit();
     }
     else if(command == "/print") {
       printAllTasks();
+      std::cout << "Press Enter to go to the menu...";
       std::cin.get();
     }
     std::this_thread::sleep_for(std::chrono::milliseconds(700));
@@ -105,7 +96,13 @@ void TaskManager::add() {
   }
 }
 
-void TaskManager::remove(const std::string& title) {
+void TaskManager::remove() {
+  printAllTasks();
+
+  std::string title;
+  std::cout << "Please enter a title: ";
+  std::getline(std::cin, title);
+
   auto removeIt = std::find_if(m_tasksArray.begin(), m_tasksArray.end(), [&title](const auto& task){
     return task["title"] == title;
   });
@@ -122,7 +119,13 @@ void TaskManager::remove(const std::string& title) {
   }
 }
 
-void TaskManager::edit(const std::string& title) {
+void TaskManager::edit() {
+  printAllTasks();
+
+  std::string title = "";
+  std::cout << "Please enter a title: ";
+  std::getline(std::cin, title);
+
   if(title.empty())
     return;
 
@@ -166,12 +169,18 @@ void TaskManager::printAllTasks() {
     std::cout << "Completed: " << task["completed"] << std::endl;
     std::cout << std::endl;
   }
-  std::cout << "Press Enter to go to the menu...";
 }
 
-void TaskManager::setTaskStatus(const std::string& title) {
+void TaskManager::setTaskStatus() {
   m_file.open(m_filename, std::ios::out);
+
+  printAllTasks();
+
   std::string status = "";
+  std::string title = "";
+
+  std::cout << "Please enter a title: ";
+  std::getline(std::cin, title);
 
   for(auto& task : m_tasksArray) {
     if(task["title"] == title) {

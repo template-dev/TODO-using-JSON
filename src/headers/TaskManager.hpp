@@ -16,18 +16,18 @@ public:
     , m_isRunning{true}
   {}
 
-  TaskManager(const TaskManager& other) = delete;
-  TaskManager(TaskManager&& other) = delete;
-  TaskManager& operator=(const TaskManager& other) = delete;
-  TaskManager& operator=(TaskManager&& other) = delete;
-  ~TaskManager() = default;
+  TaskManager(const TaskManager& other)             = delete;
+  TaskManager(TaskManager&& other)                  = delete;
+  TaskManager& operator=(const TaskManager& other)  = delete;
+  TaskManager& operator=(TaskManager&& other)       = delete;
+  ~TaskManager()                                    = default;
 
-  void start() override;
-  void add() override;
-  void remove(const std::string& title) override;
-  void edit(const std::string& title) override;
-  void printAllTasks() override;
-  void setTaskStatus(const std::string& title) override;
+  void start()          override;
+  void add()            override;
+  void remove()         override;
+  void edit()           override;
+  void printAllTasks()  override;
+  void setTaskStatus()  override;
 
 private:
   void mainMenu(const std::string& command);
